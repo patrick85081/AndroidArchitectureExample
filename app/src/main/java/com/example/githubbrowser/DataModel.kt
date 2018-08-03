@@ -11,7 +11,7 @@ class DataModel
     fun retrieveData(callback: onDataReadyCallback) =
             Handler().postDelayed({
                 callback.onDataReady("New Data");
-            }, 1500)
+            }, 3000)
 
     interface onDataReadyCallback
     {
