@@ -1,7 +1,9 @@
-package com.example.githubbrowser
+package com.example.githubbrowser.viewmodel.factory
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.example.githubbrowser.model.DataModel
+import com.example.githubbrowser.viewmodel.MainViewModel
 
 /**
  * Created by Patrick on 2018/8/4.

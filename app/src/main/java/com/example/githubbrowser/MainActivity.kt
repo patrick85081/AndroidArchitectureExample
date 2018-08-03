@@ -3,11 +3,13 @@ package com.example.githubbrowser
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.githubbrowser.databinding.MainActivityBinding
+import com.example.githubbrowser.model.DataModel
+import com.example.githubbrowser.viewmodel.MainViewModel
+import com.example.githubbrowser.viewmodel.factory.MainVIewModelFactory
 
 /**
  * Created by Patrick on 2018/8/4.

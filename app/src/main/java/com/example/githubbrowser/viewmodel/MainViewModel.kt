@@ -1,11 +1,10 @@
-package com.example.githubbrowser
+package com.example.githubbrowser.viewmodel
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
+import com.example.githubbrowser.model.DataModel
+import com.example.githubbrowser.utils.SingleLiveEvent
 
 /**
  * Created by Patrick on 2018/8/4.

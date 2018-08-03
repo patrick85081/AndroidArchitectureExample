@@ -1,4 +1,4 @@
-package com.example.githubbrowser;
+package com.example.githubbrowser.utils;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;

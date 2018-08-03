@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.githubbrowser.MainViewModel"/>
+            type="com.example.githubbrowser.viewmodel.MainViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

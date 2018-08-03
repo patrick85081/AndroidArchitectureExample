@@ -1,4 +1,4 @@
-package com.example.githubbrowser
+package com.example.githubbrowser.model
 
 import android.os.Handler
 
