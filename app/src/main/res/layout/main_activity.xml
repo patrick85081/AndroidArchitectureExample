@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.githubbrowser.MainViewModel"/>
+    </data>
+
     <android.support.constraint.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -15,7 +23,9 @@
             android:layout_height="wrap_content"
             android:text="Refresh"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:enabled="@{viewModel.isLoading() ? false : true}"
+            android:onClick="@{() -> viewModel.refresh()}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -24,16 +34,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"/>
 
         <TextView
             android:id="@+id/txtHelloWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@{viewModel.dataTitle}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

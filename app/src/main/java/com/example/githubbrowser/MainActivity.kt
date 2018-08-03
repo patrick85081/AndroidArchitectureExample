@@ -17,10 +17,9 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.main_activity);
+
         binding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity);
-        binding.btnRefresh.setOnClickListener {
-            viewModel.refresh();
-        }
+        binding.viewModel = this.viewModel;
+
     }
 }
