@@ -15,6 +15,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
     dataBinding {
         enabled true
@@ -24,6 +31,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    sourceSets {
+        androidTest.assets.srcDirs +=
+                files("$projectDir/schemas".toString())
     }
 }
 
@@ -73,9 +84,13 @@ dependencies {
     // Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
+    // Migration Test
+    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
 
     // Debug Db
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+
 }
 
 

@@ -25,6 +25,9 @@ data class Repo(
 
         @Embedded(prefix =  "owner_")
         @SerializedName("owner")
-        val owner: Owner
+        val owner: Owner,
+
+        @SerializedName("html_url")
+        val html_url: String
         )
 
