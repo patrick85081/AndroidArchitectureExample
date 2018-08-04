@@ -7,6 +7,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="com.example.githubbrowser.utils.ReposBindings"/>
 
         <variable
             name="viewModel"
@@ -57,7 +58,7 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            app:visibleGone="@{viewModel.isLoading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

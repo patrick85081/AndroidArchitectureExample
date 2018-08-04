@@ -27,12 +27,7 @@ class RepoAdapter(private var items: MutableList<Repo>) : RecyclerView.Adapter<R
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int)
     {
         val repo = items[position];
-        Glide.with(holder.itemView.context)
-                .load(repo.owner.avatarUrl)
-                .into(holder.binding.ownerAvatar);
-        holder.binding.name.text = repo.fullName;
-        holder.binding.desc.text = repo.description;
-        holder.binding.stars.text = "" + repo.starts;
+        holder.bind(repo);
     }
 
     fun swapItems(newItems: List<Repo>)
@@ -52,8 +47,14 @@ class RepoAdapter(private var items: MutableList<Repo>) : RecyclerView.Adapter<R
 
 
 
-    class RepoViewHolder(val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class RepoViewHolder(private val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root)
     {
+        fun bind(repo: Repo)
+        {
+            binding.repo = repo;
+            // 強制馬上綁定
+            binding.executePendingBindings();
+        }
     }
 
     class RepoDiffCallback(private var oldList: List<Repo>, private var newList : List<Repo>) : DiffUtil.Callback()
