@@ -67,7 +67,7 @@ class RepoFragment : Fragment(), Injectable
 
         binding.viewModel = viewModel;
         viewModel.repos.observe(this, Observer {response ->
-
+            viewModel.isLoading.set(false);
             if(response!!.isSuccessful)
                 repoAdapter.swapItems(response!!.body!!.items);
             else
@@ -85,7 +85,7 @@ class RepoFragment : Fragment(), Injectable
             repoAdapter.clearItems();
             return;
         }
-
+        viewModel.isLoading.set(true);
         viewModel.searchRepo(query);
         dismissKeyboard();
     }

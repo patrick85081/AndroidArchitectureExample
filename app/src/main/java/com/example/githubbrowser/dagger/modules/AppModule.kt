@@ -1,9 +1,11 @@
 package com.example.githubbrowser.dagger.modules
 
-import com.example.githubbrowser.models.DataModel
+import android.arch.persistence.room.Room
+import com.example.githubbrowser.App
+import com.example.githubbrowser.db.GithubDb
+import com.example.githubbrowser.db.dao.RepoDao
 import com.example.githubbrowser.services.GithubService
 import com.example.githubbrowser.services.RetrofitManager
-import com.example.githubbrowser.viewmodels.factorys.GithubViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,6 +22,14 @@ class AppModule
     {
         return RetrofitManager.githubService;
     }
+
+    @Provides
+    @Singleton
+    fun providerDb(app : App) = Room.databaseBuilder(app, GithubDb::class.java, "github.db").build();
+
+    @Provides
+    @Singleton
+    fun provideRepoDao(db : GithubDb) : RepoDao =  db.repoDao();
 }
 
 
