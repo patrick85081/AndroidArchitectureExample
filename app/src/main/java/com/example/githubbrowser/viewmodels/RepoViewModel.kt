@@ -1,10 +1,15 @@
 package com.example.githubbrowser.viewmodels
 
+import android.arch.core.util.Function
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import android.text.TextUtils
 import com.example.githubbrowser.models.DataModel
 import com.example.githubbrowser.services.models.Repo
+import com.example.githubbrowser.utils.AbsentLiveData
 import com.example.githubbrowser.utils.SingleLiveEvent
 
 /**
@@ -13,35 +18,20 @@ import com.example.githubbrowser.utils.SingleLiveEvent
 //class RepoViewModel(application: Application) : AndroidViewModel(application)
 class RepoViewModel(private val dataModel: DataModel) : ViewModel()
 {
-//    val dataTitle = MutableLiveData<String>();
-//    val toastText = SingleLiveEvent<String>();
     val isLoading = ObservableBoolean(false);
+    private val query = MutableLiveData<String>();
 
-    val repos = MutableLiveData<List<Repo>>();
+    val repos : LiveData<List<Repo>> by lazy {
+        Transformations.switchMap(query, Function<String, LiveData<List<Repo>>> {userInput ->
+            if(TextUtils.isEmpty(userInput))
+                AbsentLiveData.create()
+            else
+                dataModel.searchRepo(userInput);
+        });
+    }
 
     fun searchRepo(query: String)
     {
-        isLoading.set(true);
-
-        dataModel.searchRepo(query, {data ->
-            repos.value = data;
-            isLoading.set(false);
-        })
+        this.query.value = query;
     }
-
-//    fun refresh()
-//    {
-//        isLoading.set(true);
-//
-//        dataModel.retrieveData((object : DataModel.onDataReadyCallback
-//        {
-//            override fun onDataReady(data: String)
-//            {
-//                dataTitle.value = data;
-//                toastText.value = "下載完成";
-//                isLoading.set(false);
-//            }
-//
-//        }))
-//    }
 }

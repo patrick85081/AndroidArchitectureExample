@@ -1,5 +1,6 @@
 package com.example.githubbrowser.models
 
+import android.arch.lifecycle.MutableLiveData
 import android.os.Handler
 import com.example.githubbrowser.services.RetrofitManager
 import com.example.githubbrowser.services.models.Repo
@@ -16,8 +17,9 @@ class DataModel
 {
     private val githubService = RetrofitManager.githubService;
 
-    fun searchRepo(query: String, callback: (List<Repo>) -> Unit)
+    fun searchRepo(query: String) : MutableLiveData<List<Repo>>
     {
+        val repos = MutableLiveData<List<Repo>>();
         githubService.searchRepos(query)
                 .enqueue(object : Callback<RepoSearchResponse>
                 {
@@ -29,9 +31,11 @@ class DataModel
                     override fun onResponse(call: Call<RepoSearchResponse>?,
                                             response: Response<RepoSearchResponse>?)
                     {
-                        callback.invoke(response?.body()?.items ?: ArrayList());
+//                        callback.invoke(response?.body()?.items ?: ArrayList());
+                        repos.value = response?.body()?.items ?: ArrayList();
                     }
-                })
+                });
+        return repos;
     }
 
     fun retrieveData(callback: onDataReadyCallback) =
