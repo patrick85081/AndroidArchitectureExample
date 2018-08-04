@@ -18,10 +18,10 @@ data class Repo(
         val fullName: String,
 
         @SerializedName("description")
-        val description: String,
+        val description: String?,
 
         @SerializedName("stargazers_count")
-        val starts: Int,
+        val stars: Int,
 
         @Embedded(prefix =  "owner_")
         @SerializedName("owner")

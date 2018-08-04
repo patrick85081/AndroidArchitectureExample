@@ -12,3 +12,9 @@ data class RepoSearchResponse(
         @SerializedName("items")
         val items: List<Repo>
 )
+{
+    fun getRepoIds(): List<Int>
+    {
+        return items.map { repo -> repo.id }.toList();
+    }
+}

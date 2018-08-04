@@ -63,7 +63,7 @@
                 android:layout_marginTop="@dimen/default_margin"
                 android:drawableEnd="@android:drawable/btn_star"
                 android:gravity="center"
-                android:text="@{String.valueOf(repo.starts)}"
+                android:text="@{String.valueOf(repo.stars)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="5" />

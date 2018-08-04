@@ -35,7 +35,8 @@ class RepoFragment : Fragment(), Injectable
         set;
 
     private val viewModel: RepoViewModel by lazy {
-        ViewModelProviders.of(this, githubViewModelFactory).get(RepoViewModel::class.java) };
+        ViewModelProviders.of(this, githubViewModelFactory).get(RepoViewModel::class.java)
+    };
 
     private val repoAdapter = RepoAdapter(ArrayList<Repo>());
     private lateinit var binding: RepoFragmentBinding;
@@ -44,18 +45,20 @@ class RepoFragment : Fragment(), Injectable
     {
         val TAG = "RepoFragment";
         @JvmStatic
-        fun newInstance() : RepoFragment = RepoFragment();
+        fun newInstance(): RepoFragment = RepoFragment();
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
-        binding = DataBindingUtil.inflate<RepoFragmentBinding>(inflater, R.layout.repo_fragment, container, false);
+        binding = DataBindingUtil.inflate<RepoFragmentBinding>(inflater, R.layout.repo_fragment,
+                container, false);
 
         binding.btnSearch.setOnClickListener {
             doSearch();
         }
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.adapter = repoAdapter;
 
         return binding.root;
@@ -66,21 +69,17 @@ class RepoFragment : Fragment(), Injectable
         super.onActivityCreated(savedInstanceState)
 
         binding.viewModel = viewModel;
-        viewModel.repos.observe(this, Observer {response ->
+        viewModel.repos.observe(this, Observer { response ->
             viewModel.isLoading.set(false);
-            if(response!!.isSuccessful)
-                repoAdapter.swapItems(response!!.body!!.items);
-            else
-            {
-                Toast.makeText(context, response.errorMessage, Toast.LENGTH_SHORT).show();
-            }
+            if(response!!.data != null)
+                repoAdapter.swapItems(response.data!!);
         });
     }
 
     private fun doSearch()
     {
         val query = binding.edtQuery.text.toString();
-        if(TextUtils.isEmpty(query))
+        if (TextUtils.isEmpty(query))
         {
             repoAdapter.clearItems();
             return;

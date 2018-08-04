@@ -25,7 +25,7 @@ class AppModule
 
     @Provides
     @Singleton
-    fun providerDb(app : App) = Room.databaseBuilder(app, GithubDb::class.java, "github.db").build();
+    fun providerDb(app : App) : GithubDb = Room.databaseBuilder(app, GithubDb::class.java, "github.db").build();
 
     @Provides
     @Singleton
