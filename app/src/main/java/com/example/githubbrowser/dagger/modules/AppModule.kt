@@ -20,10 +20,6 @@ class AppModule
     {
         return RetrofitManager.githubService;
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideFactory(dataModel: DataModel) : GithubViewModelFactory = GithubViewModelFactory(dataModel);
 }
 
 

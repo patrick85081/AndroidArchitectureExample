@@ -13,12 +13,17 @@ import com.example.githubbrowser.services.models.Repo
 import com.example.githubbrowser.services.models.RepoSearchResponse
 import com.example.githubbrowser.utils.AbsentLiveData
 import com.example.githubbrowser.utils.SingleLiveEvent
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Patrick on 2018/8/4.
  */
 //class RepoViewModel(application: Application) : AndroidViewModel(application)
-class RepoViewModel(private val dataModel: DataModel) : ViewModel()
+@Singleton
+class RepoViewModel
+    @Inject
+    constructor(private val dataModel: DataModel) : ViewModel()
 {
     val isLoading = ObservableBoolean(false);
     private val query = MutableLiveData<String>();

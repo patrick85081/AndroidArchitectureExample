@@ -2,9 +2,8 @@ package com.example.githubbrowser.viewmodels.factorys
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.example.githubbrowser.models.DataModel
-import com.example.githubbrowser.viewmodels.RepoViewModel
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -12,14 +11,26 @@ import javax.inject.Singleton
  */
 @Singleton
 class GithubViewModelFactory
-    @Inject
-    constructor (private val dataModel: DataModel) : ViewModelProvider.Factory
+@Inject
+constructor(
+        private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
+        ViewModelProvider.Factory
 {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T
     {
-        if(modelClass.isAssignableFrom(RepoViewModel::class.java))
-            return RepoViewModel(dataModel) as T;
+        val creator: Provider<ViewModel>? =
+                creators[modelClass] ?: this.creators.entries
+                        .firstOrNull { entry -> modelClass.isAssignableFrom(entry.key) }
+                        ?.value ?: throw IllegalArgumentException(
+                        "Unknown ViewModel class $modelClass");
 
-        throw IllegalArgumentException("Unknown ViewModel class")
+        try
+        {
+            return creator!!.get() as T;
+        }
+        catch (ex: Exception)
+        {
+            throw RuntimeException(ex);
+        }
     }
 }
