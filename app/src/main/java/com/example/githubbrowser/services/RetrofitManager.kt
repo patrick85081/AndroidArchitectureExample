@@ -1,5 +1,6 @@
 package com.example.githubbrowser.services
 
+import com.example.githubbrowser.utils.LiveDataCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,6 +13,7 @@ object RetrofitManager
         Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
                 .create(GithubService::class.java);
     }

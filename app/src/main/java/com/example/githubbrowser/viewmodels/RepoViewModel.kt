@@ -8,7 +8,9 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.text.TextUtils
 import com.example.githubbrowser.models.DataModel
+import com.example.githubbrowser.services.models.ApiResponse
 import com.example.githubbrowser.services.models.Repo
+import com.example.githubbrowser.services.models.RepoSearchResponse
 import com.example.githubbrowser.utils.AbsentLiveData
 import com.example.githubbrowser.utils.SingleLiveEvent
 
@@ -21,8 +23,8 @@ class RepoViewModel(private val dataModel: DataModel) : ViewModel()
     val isLoading = ObservableBoolean(false);
     private val query = MutableLiveData<String>();
 
-    val repos : LiveData<List<Repo>> by lazy {
-        Transformations.switchMap(query, Function<String, LiveData<List<Repo>>> {userInput ->
+    val repos : LiveData<ApiResponse<RepoSearchResponse>> by lazy {
+        Transformations.switchMap(query, { userInput ->
             if(TextUtils.isEmpty(userInput))
                 AbsentLiveData.create()
             else

@@ -18,6 +18,7 @@ import com.example.githubbrowser.viewmodels.RepoViewModel
 import com.example.githubbrowser.viewmodels.factorys.GithubViewModelFactory
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 
 
 /**
@@ -59,8 +60,14 @@ class RepoFragment : Fragment()
         super.onActivityCreated(savedInstanceState)
 
         binding.viewModel = viewModel;
-        viewModel.repos.observe(this, Observer {repos ->
-            repoAdapter.swapItems(repos!!);
+        viewModel.repos.observe(this, Observer {response ->
+
+            if(response!!.isSuccessful)
+                repoAdapter.swapItems(response!!.body!!.items);
+            else
+            {
+                Toast.makeText(context, response.errorMessage, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
