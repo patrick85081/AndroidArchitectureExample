@@ -1,5 +1,6 @@
 package com.example.githubbrowser
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -19,6 +20,8 @@ import com.example.githubbrowser.viewmodels.factorys.GithubViewModelFactory
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 
 /**
@@ -26,10 +29,13 @@ import android.widget.Toast
  */
 class RepoFragment : Fragment()
 {
+    lateinit var githubViewModelFactory: GithubViewModelFactory
+        @Inject
+        set;
+
 
     private val viewModel: RepoViewModel by lazy {
-        val factory = GithubViewModelFactory(DataModel());
-        ViewModelProviders.of(this, factory).get(RepoViewModel::class.java) };
+        ViewModelProviders.of(this, githubViewModelFactory).get(RepoViewModel::class.java) };
 
     private val repoAdapter = RepoAdapter(ArrayList<Repo>());
     private lateinit var binding: RepoFragmentBinding;
@@ -53,6 +59,12 @@ class RepoFragment : Fragment()
         binding.recyclerView.adapter = repoAdapter;
 
         return binding.root;
+    }
+
+    override fun onAttach(context: Context?)
+    {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?)

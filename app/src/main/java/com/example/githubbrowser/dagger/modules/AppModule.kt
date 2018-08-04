@@ -1,7 +1,9 @@
 package com.example.githubbrowser.dagger.modules
 
+import com.example.githubbrowser.models.DataModel
 import com.example.githubbrowser.services.GithubService
 import com.example.githubbrowser.services.RetrofitManager
+import com.example.githubbrowser.viewmodels.factorys.GithubViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -18,6 +20,10 @@ class AppModule
     {
         return RetrofitManager.githubService;
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideFactory(dataModel: DataModel) : GithubViewModelFactory = GithubViewModelFactory(dataModel);
 }
 
 

@@ -1,8 +1,9 @@
 package com.example.githubbrowser.dagger.components
 
 import com.example.githubbrowser.App
+import com.example.githubbrowser.dagger.modules.ActivityBuildersModule
 import com.example.githubbrowser.dagger.modules.AppModule
-import com.example.githubbrowser.dagger.modules.BuildersModule
+import com.example.githubbrowser.dagger.modules.FragmentBuildersModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -15,7 +16,8 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
-    BuildersModule::class])
+    ActivityBuildersModule::class,
+    FragmentBuildersModule::class])
 abstract class AppComponent
 {
     @Component.Builder

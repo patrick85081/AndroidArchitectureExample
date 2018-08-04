@@ -10,12 +10,17 @@ import com.example.githubbrowser.services.models.RepoSearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 /**
  * Created by Patrick on 2018/8/4.
  */
+@Singleton
 class DataModel
+    @Inject
+    constructor()
 {
     private val githubService = RetrofitManager.githubService;
 
