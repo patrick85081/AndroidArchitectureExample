@@ -3,6 +3,7 @@ package com.example.githubbrowser
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.githubbrowser.dagger.Injectable
 import com.example.githubbrowser.services.GithubService
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -15,7 +16,7 @@ import javax.inject.Inject
 /**
  * Created by Patrick on 2018/8/4.
  */
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector
+class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
 {
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentDispatchingAndroidInjector;
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity);
 

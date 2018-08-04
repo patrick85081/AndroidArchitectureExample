@@ -20,6 +20,7 @@ import com.example.githubbrowser.viewmodels.factorys.GithubViewModelFactory
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.example.githubbrowser.dagger.Injectable
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -27,12 +28,11 @@ import javax.inject.Inject
 /**
  * Created by Patrick on 2018/8/4.
  */
-class RepoFragment : Fragment()
+class RepoFragment : Fragment(), Injectable
 {
     lateinit var githubViewModelFactory: GithubViewModelFactory
         @Inject
         set;
-
 
     private val viewModel: RepoViewModel by lazy {
         ViewModelProviders.of(this, githubViewModelFactory).get(RepoViewModel::class.java) };
@@ -59,12 +59,6 @@ class RepoFragment : Fragment()
         binding.recyclerView.adapter = repoAdapter;
 
         return binding.root;
-    }
-
-    override fun onAttach(context: Context?)
-    {
-        AndroidSupportInjection.inject(this);
-        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?)

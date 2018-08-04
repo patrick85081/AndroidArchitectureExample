@@ -3,6 +3,7 @@ package com.example.githubbrowser;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.githubbrowser.dagger.AppInjector;
 import com.example.githubbrowser.dagger.components.DaggerAppComponent;
 
 import javax.inject.Inject;
@@ -32,10 +33,7 @@ public class App extends Application implements HasActivityInjector
             Timber.plant(new CrashReportingTree());
         }
 
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this);
+        AppInjector.init(this);
     }
 
     @Override
