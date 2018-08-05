@@ -28,14 +28,14 @@ class Resource<T>(val status: Status, val data: T?, val message: String?)
     }
 
     override fun equals(other: Any?): Boolean =
-            if (this == other)
+            if (this === other)
                 true
             else if (other == null || javaClass != other.javaClass)
                 false
             else if (other is Resource<*>)
                 this.status == other.status &&
                         this.message.equals(other.message) &&
-                        this.data?.equals(other.data) == true
+                        this.data == other.data
             else false;
 
     override fun hashCode(): Int
